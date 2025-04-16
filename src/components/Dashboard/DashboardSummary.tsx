@@ -10,19 +10,16 @@ export const DashboardSummary = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
         <StatCard
-          icon={<BookOpenCheck className="text-red-500" />}
           label="Capaian Pengetahuan"
           value="76%"
           iconPath="/icons/pengetahuan.svg"
         />
         <StatCard
-          icon={<Sparkles className="text-yellow-500" />}
           label="Capaian Keterampilan"
           value="65%"
           iconPath="/icons/keterampilan.svg"
         />
         <StatCard
-          icon={<MessageSquareQuote className="text-orange-500" />}
           label="Rekap Penilaian Sikap"
           value="18 Sangat Baik"
           subtext="Baik: 6, Perlu Pembinaan: 2"

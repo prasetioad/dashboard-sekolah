@@ -1,13 +1,11 @@
 import { ReactNode } from "react";
 
 export const StatCard = ({
-  icon,
   label,
   value,
   subtext,
   iconPath
 }: {
-  icon: ReactNode;
   label: string;
   value: string;
   subtext?: string;
