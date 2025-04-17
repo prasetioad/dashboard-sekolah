@@ -8,6 +8,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout><Dashboard/></Layout>} /> 
+      <Route path="/akademik" element={<Layout><Dashboard/></Layout>} />
       <Route path="/presensi" element={<Layout><Absensi /> </Layout>} />
       <Route path="/rapor" element={<Layout><Rapor /></Layout>} />
     </Routes>
