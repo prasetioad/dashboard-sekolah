@@ -19,8 +19,8 @@ const Sidebar = () => {
   console.log('location',location);
   
   return (
-    <aside className="w-56 bg-white border-r p-4">
-      <div className="mb-6 text-xl font-bold">Sekolah App</div>
+    <aside className="w-48 bg-white border-r p-4">
+      <div className="mb-6 text-xl font-bold"><img src="/icons/LOGO.svg" alt="PENABUR" /></div>
       <nav className="space-y-2 mb-4">
         <span className="p-4 text-xs">MENU</span>
         {menuItems.map(({ label, icon, path }) => (

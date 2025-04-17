@@ -12,8 +12,8 @@ export const StatCard = ({
   iconPath:string;
 }) => {
   return (
-    <div className="bg-white shadow rounded-2xl p-4 flex items-center space-x-4">
-      <div className="bg-gray-100 p-2 rounded-full">
+    <div className="bg-white rounded-2xl p-4 flex items-center space-x-4">
+      <div className=" p-2 rounded-full">
         <img src={iconPath} alt={`${label} icon`} className="w-10 h-10" />
       </div>
       <div>

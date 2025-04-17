@@ -1,6 +1,8 @@
 import { useState } from "react";
+import useSearchAndSort from '@/hooks/useSearchAndSort'
 
 const StudentsTable = () => {
+
   const students = [
     { no: 1, name: 'Scarlett Fatimah', status: 'Hadir', average: 85 },
     { no: 2, name: 'Carter Westervelt M.', status: 'Hadir', average: 78 },
@@ -41,14 +43,12 @@ const StudentsTable = () => {
     { no: 37, name: 'Matthew Martinez', status: 'Hadir', average: 79 },
     { no: 38, name: 'Brooklyn Harris', status: 'Hadir', average: 83 },
   ];
-  // const [keyword, setkeyword] = useState('')
-  // const [sortField, setsortField] = useState('name')
-  // const [sortType, setSortType] = useState('asc')
+  const [keyword, setkeyword] = useState('')
+  const [keywordFiled, setKeywordFiled] = useState('')
+  const [sortField, setsortField] = useState('name')
+  const [sortType, setSortType] = useState('asc')
 
-  // const useSearchAndSort = () => {
-
-  // }
-
+  const filteredData = useSearchAndSort(students, keyword, "name", "name", sortType )
   return (
     <div className="bg-white rounded-2xl p-4 shadow w-full">
       <div className="flex justify-between items-center text-sm text-gray-500 mb-2">
@@ -56,7 +56,7 @@ const StudentsTable = () => {
         <span className="flex justify-end gap-2">Juni 2024 - Juli 2025 <img src="/icons/arrow-down.svg" /></span>
       </div>
       <div className="mb-2">
-        <input type="text" placeholder="Search" className="border p-2 text-sm rounded w-full" />
+        <input type="text" placeholder="Search" className="border p-2 text-sm rounded w-full" onChange={(e)=> setkeyword(e.target.value)} />
       </div>
       <table className="w-full text-sm text-left">
         <thead>
@@ -69,7 +69,7 @@ const StudentsTable = () => {
           </tr>
         </thead>
         <tbody>
-          {students.map((student) => (
+          {filteredData.map((student) => (
             <tr key={student.no} className="border-b">
               <td className="p-2">{student.no}</td>
               <td className="p-2">{student.name}</td>

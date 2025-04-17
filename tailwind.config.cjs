@@ -9,7 +9,8 @@ module.exports = {
       colors: {
         'biru-dark': '#314F84',
         'biru-light': '#409CEA',
-        'black': '#000'
+        'black': '#000',
+        'red': '#DE2323'
       },
     },
   },

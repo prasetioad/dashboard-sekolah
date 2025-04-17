@@ -4,7 +4,7 @@ import { BookOpenCheck, Sparkles, MessageSquareQuote } from "lucide-react";
 export const DashboardSummary = () => {
   return (
     <div className="grid gap-2 text-gray-500 bg-white shadow rounded-2xl p-2">
-      <div className="grid grid-cols-1 md:grid-cols-4 p-2 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-4 p-2 items-center border-b">
         <span className='text-lg font-bold col-span-3'>Dashboard Wali Kelas</span>
         <span className="text-sm flex justify-end gap-2">Juni 2024 - Juli 2025 <img src="/icons/arrow-down.svg" /></span>
       </div>
