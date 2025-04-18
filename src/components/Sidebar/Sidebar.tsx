@@ -21,7 +21,8 @@ const Sidebar = () => {
   
   return (
     <aside className="w-48 bg-white border-r p-4">
-      <div className="mb-6 text-xl font-bold"><img src="/icons/LOGO.svg" alt="PENABUR" /></div>
+      {/* <div className="mb-6 text-xl font-bold"><img src="/icons/LOGO.svg" alt="PENABUR" /></div> */}
+      <div className="mb-6 text-xl font-bold"><img src="/icons/logo_sma_alkautsar.jpeg" alt="logo_sma_alkautsar" /></div>
       <nav className="space-y-2 mb-4">
         <span className="p-4 text-xs">MENU</span>
         {menuItems.map(({ label, icon, path }) => (
