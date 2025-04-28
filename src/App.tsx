@@ -1,18 +1,24 @@
-import { Routes, Route } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
-import Absensi from './pages/Presensi'
-import Rapor from './pages/Rapor'
-import Layout from './Layouts/Layout'
+import { Routes, Route, Navigate } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Absensi from "./pages/Presensi";
+import Rapor from "./pages/Rapor";
+import Layout from "./Layouts/Layout";
+import LoginPage from "./pages/Login";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout><Dashboard/></Layout>} /> 
-      <Route path="/akademik" element={<Layout><Dashboard/></Layout>} />
-      <Route path="/presensi" element={<Layout><Absensi /> </Layout>} />
-      <Route path="/rapor" element={<Layout><Rapor /></Layout>} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="akademik" element={<Dashboard />} />
+        <Route path="presensi" element={<Absensi />} />
+        <Route path="rapor" element={<Rapor />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
