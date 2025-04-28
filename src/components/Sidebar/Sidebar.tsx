@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
-  {label : "Dashboard", icon: '/icons/Dashboard.svg', path:'/'},
+  {label : "Dashboard", icon: '/icons/Dashboard.svg', path:'/dashboard'},
   {label: "Akademik", icon: '/icons/akademik.svg', path:'/akademik'},
   {label: "Presensi", icon: '/icons/user.svg', path:'/presensi'},
   {label: "Rapor", icon: '/icons/erapor.svg', path:'/rapor'},

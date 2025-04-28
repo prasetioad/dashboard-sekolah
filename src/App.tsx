@@ -9,12 +9,16 @@ function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/" element={<Layout />}>
-        <Route index element={<Dashboard />} />
+        {/* <Route index element={<Dashboard />} /> */}
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="akademik" element={<Dashboard />} />
         <Route path="presensi" element={<Absensi />} />
         <Route path="rapor" element={<Rapor />} />
+        <Route path="profile" element={<Rapor />} />
+        <Route path="pengaturan" element={<Rapor />} />
+        <Route path="bantuan" element={<Rapor />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
