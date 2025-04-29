@@ -4,6 +4,9 @@ import Absensi from "./pages/Presensi";
 import Rapor from "./pages/Rapor";
 import Layout from "./Layouts/Layout";
 import LoginPage from "./pages/Login";
+import Help from "./pages/Help";
+import Setting from "./pages/Setting"
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -11,14 +14,13 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/" element={<Layout />}>
-        {/* <Route index element={<Dashboard />} /> */}
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="akademik" element={<Dashboard />} />
         <Route path="presensi" element={<Absensi />} />
         <Route path="rapor" element={<Rapor />} />
-        <Route path="profile" element={<Rapor />} />
-        <Route path="pengaturan" element={<Rapor />} />
-        <Route path="bantuan" element={<Rapor />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="pengaturan" element={<Setting />} />
+        <Route path="bantuan" element={<Help />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>

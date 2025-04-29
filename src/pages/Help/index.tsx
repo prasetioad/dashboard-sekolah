@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 function index() {
   return (
-    <div>index</div>
+    <div>Help</div>
   )
 }
 
