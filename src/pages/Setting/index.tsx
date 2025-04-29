@@ -1,8 +1,8 @@
-import React from 'react'
+import ComingSoon from '@/components/Commingsoon'
 
 const index = () => {
   return (
-    <div>Setting</div>
+    <ComingSoon />
   )
 }
 

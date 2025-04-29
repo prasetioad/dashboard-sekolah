@@ -1,12 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import ComingSoon from '@/components/Commingsoon'
 
-function index() {
+const index = () => {
   return (
-    <div>Help</div>
+    <ComingSoon />
   )
 }
-
-index.propTypes = {}
 
 export default index

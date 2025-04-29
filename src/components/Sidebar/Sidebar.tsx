@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { useAppContext } from "@/context/AppContext";
 
 const menuItems = [
   {label : "Dashboard", icon: '/icons/Dashboard.svg', path:'/dashboard'},
@@ -17,8 +18,7 @@ const accountItems = [
 
 const Sidebar = () => {
   const location = useLocation()
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  const { isSidebarOpen, toggleSidebar } = useAppContext();
 
   return (
     <>
@@ -26,9 +26,9 @@ const Sidebar = () => {
         className="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded shadow"
         onClick={toggleSidebar}
       >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
+        {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
-      {isOpen && (
+      {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden"
           onClick={toggleSidebar}
@@ -36,7 +36,7 @@ const Sidebar = () => {
       )}
       <aside
         className={`fixed top-0 left-0 h-full w-64 bg-white border-r p-4 z-50 transform transition-transform duration-300 ease-in-out
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
         md:translate-x-0 md:static md:block`}
       >
         <div className="mb-6 text-xl font-bold">
@@ -48,7 +48,7 @@ const Sidebar = () => {
             <Link
               key={label}
               to={path}
-              onClick={() => setIsOpen(false)}
+              onClick={() => toggleSidebar()}
               className={`flex items-center space-x-2 text-sm font-medium px-3 py-2 rounded-md w-full text-left transition ${
                 location.pathname === path
                   ? "bg-gradient-to-r from-biru-dark to-biru-light text-white shadow"
@@ -66,7 +66,7 @@ const Sidebar = () => {
             <Link
               key={label}
               to={path}
-              onClick={() => setIsOpen(false)}
+              onClick={() => toggleSidebar()}
               className={`flex items-center space-x-2 text-sm font-medium px-3 py-2 rounded-md w-full text-left transition ${
                 location.pathname === path
                   ? "bg-gradient-to-r from-biru-dark to-biru-light text-white shadow"

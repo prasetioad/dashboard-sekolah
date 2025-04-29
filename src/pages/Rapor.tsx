@@ -1,10 +1,8 @@
-import Layout from "../Layouts/Layout"
+import ComingSoon from "@/components/Commingsoon";
 
 const Rapor = () => {
     return(
-         <div>
-            <div>Ini Halaman Rapor</div>
-         </div>
+         <ComingSoon />
     )
   };
   

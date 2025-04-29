@@ -7,6 +7,7 @@ import LoginPage from "./pages/Login";
 import Help from "./pages/Help";
 import Setting from "./pages/Setting"
 import Profile from "./pages/Profile";
+import Akademik from "./pages/Akademik";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/" element={<Layout />}>
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="akademik" element={<Dashboard />} />
+        <Route path="akademik" element={<Akademik />} />
         <Route path="presensi" element={<Absensi />} />
         <Route path="rapor" element={<Rapor />} />
         <Route path="profile" element={<Profile />} />
