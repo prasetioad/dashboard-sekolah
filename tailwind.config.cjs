@@ -8,11 +8,22 @@ module.exports = {
     extend: {
       colors: {
         'biru-dark': '#314F84',
-        'biru-light': '#409CEA',
+        'biru': "#409CEA",
+        'biru-light' : "#C2E2F8",
         'black': '#000',
-        'red': '#DE2323'
+        'red': '#DE2323',
+        'grey': '#767C85',
+        'grey-white': '#F6F8F9',
+        'pink' :"#F8C2E6"
       },
     },
+  },
+  safelist: [
+    'odd:bg-gray-100',
+    'even:bg-white'
+  ],
+  variants : {
+    // backgroundColor: ['odd', 'even'],
   },
   plugins: [],
 }

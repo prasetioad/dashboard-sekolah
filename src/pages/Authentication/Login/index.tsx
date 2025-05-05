@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -28,9 +28,17 @@ export default function LoginPage() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    navigate('/dashboard');
+    if(username == 'admisi'){
+      navigate('/dashboard-admission');
+    }else{
+      navigate('/dashboard');
+    }
   };
 
+  useEffect(() => {
+    localStorage.setItem('name', username)
+  }, [username])
+  
   return (
     <Box
       sx={{

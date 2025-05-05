@@ -46,7 +46,7 @@ const StudentsTable = () => {
   const [keyword, setkeyword] = useState('')
   const [keywordFiled, setKeywordFiled] = useState('')
   const [sortField, setsortField] = useState('name')
-  const [sortType, setSortType] = useState('asc')
+  const [sortType, setSortType] = useState('dsc')
 
   const filteredData = useSearchAndSort(students, keyword, "name", "name", sortType )
   return (

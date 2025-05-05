@@ -1,7 +1,7 @@
 import { Home, Book, Users } from "lucide-react"; // sementara pake lucide
-import Dashboard from "../../pages/Dashboard";
-import Presensi from "../../pages/Presensi";
-import Rapor from "../../pages/Rapor";
+import Dashboard from "../../pages/Academic/Dashboard/Dashboard";
+import Presensi from "../../pages/Academic/Presence/Presensi";
+import Rapor from "../../pages/Academic/Report/Rapor";
 
 
 export default (privilege:string) => [

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
@@ -16,10 +15,23 @@ const accountItems = [
   {label: "Bantuan", icon: '/icons/help.svg', path:'/bantuan'},
 ];
 
+const admissionMenuItems = [
+  {label : "Dashboard", icon: '/icons/Dashboard.svg', path:'/dashboard-admission'},
+  {label: "Registration", icon: '/icons/akademik.svg', path:'/registration'},
+  {label: "Screening", icon: '/icons/user.svg', path:'/screening'},
+  {label: "Re-enrollment", icon: '/icons/erapor.svg', path:'/re-enrollment'},
+];
+
+const admissionAccountItems = [
+  {label : "Profile", icon: '/icons/user.svg', path:'/profile'},
+  {label: "FAQ", icon: '/icons/setting.svg', path:'/faq'},
+];
+
+
 const Sidebar = () => {
   const location = useLocation()
   const { isSidebarOpen, toggleSidebar } = useAppContext();
-
+  const name = localStorage.getItem('name')
   return (
     <>
       <button
@@ -39,12 +51,9 @@ const Sidebar = () => {
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
         md:translate-x-0 md:static md:block`}
       >
-        <div className="mb-6 text-xl font-bold">
-          <img src="/icons/logo_sma_alkautsar.jpeg" alt="logo_sma_alkautsar" />
-        </div>
         <nav className="space-y-2 mb-4">
           <span className="p-4 text-xs">MENU</span>
-          {menuItems.map(({ label, icon, path }) => (
+          {(name == 'admisi'? admissionMenuItems : menuItems).map(({ label, icon, path }) => (
             <Link
               key={label}
               to={path}

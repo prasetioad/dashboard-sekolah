@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
   type student = {
-    no:number;
+    no:any;
     name:string;
     status:string,
-    average:number
+    average?:number
   }
 
 function useSearchAndSort (data:student[], keyword:string, keywordField:keyof student, sortField:keyof student, sortType:string) {

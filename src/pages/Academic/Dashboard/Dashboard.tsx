@@ -1,8 +1,8 @@
-import { DashboardSummary } from "../components/Dashboard/DashboardSummary";
-import PresenceRing from "../components/Dashboard/PresenceRing";
-import Announcement from "../components/Dashboard/Announcement";
-import BarChartKD from "../components/Dashboard/BarChartKD";
-import StudentsTable from "../components/Dashboard/StudentsTable";
+import { DashboardSummary } from "../../../components/Dashboard/DashboardSummary";
+import PresenceRing from "../../../components/Dashboard/PresenceRing";
+import Announcement from "../../../components/Dashboard/Announcement";
+import BarChartKD from "../../../components/Dashboard/BarChartKD";
+import StudentsTable from "../../../components/Dashboard/StudentsTable";
 
 export default function Dashboard() {
   return (
