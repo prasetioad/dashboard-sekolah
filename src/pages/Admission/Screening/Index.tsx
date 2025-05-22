@@ -17,10 +17,22 @@ type TScrining = {
   student_name: string;
   student_image: string;
 };
+
+type TDataTable = {
+  id: number;
+  registration_number: string,
+  student_name: string,
+  origin_school: string,
+  status:string,
+  result: string,
+  action: string,
+  student_image: string
+}
+
 function Screening() {
   const [keyword, setKeyword] = useState("");
 
-  const data: any = [
+  const data: TDataTable[] = [
     {
       id: 1,
       registration_number: "SEC-2069291854S",
@@ -75,7 +87,7 @@ function Screening() {
     item.student_name.toLowerCase().includes(keyword.toLowerCase())
   );
 
-  const getTableColumn = ({}) => {
+  const getTableColumn = () => {
     const columns: GridColDef<TScrining>[] = [
       {
         field: "registration_number",
@@ -211,26 +223,14 @@ function Screening() {
           <DataTable
             // loading={query.isLoading}
             rows={data}
-            columns={getTableColumn({
-              // onDelete: (row) => {
-              //   setId(row.news_id);
-              //   setDeletePopup(true);
-              // },
-              // onEdit: (row) => {
-              //   router.push(route(paths.marketing.news.update, { id: row.news_id }));
-              // },
-              // onDetail: (row) => {
-              //   setId(row.news_id);
-              //   setDetailPopup(true);
-              // },
-            })}
+            columns={getTableColumn()}
             // checkboxSelection
             paginationInfo={{
               page: 1,
               page_size: 10,
               total: 0,
             }}
-            handleChange={(pagination) => {}}
+            handleChange={() => {}}
             // getRowId={(row: TNews) => row.news_id}
             slots={{
               pagination: () => null, // <- hide pagination component
