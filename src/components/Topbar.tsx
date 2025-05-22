@@ -11,7 +11,7 @@ const Topbar = () => {
         </div>
         <div className="flex justify-end gap-8 items-center">
           <div className="text-sm text-gray-600 ">
-            <img src="/icons/Notification.svg" alt="notif" className="bg-biru-light  bg-opacity-20 p-1 rounded-full " />
+            <img src="/icons/Notification.svg" alt="notif" className="bg-blue-light  bg-opacity-20 p-1 rounded-full " />
           </div>
           <div className="flex items-center gap-2" >
             <img

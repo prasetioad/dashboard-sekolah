@@ -1,45 +1,67 @@
-import React from 'react'
-import { Grid, TextField} from '@mui/material'
+import React, { useRef, useState } from 'react'
+import { Grid, TextField } from '@mui/material'
 import { RegistrationProps } from './Interface'
+import UploadFile from '@/components/UploadFIle/UploadFile'
 
-function EducationalBackgroundInformation(props:RegistrationProps) {
-    const { listData, handelChange, draft } = props
+function EducationalBackgroundInformation(props: RegistrationProps) {
+    const { listData, draft, setDraft } = props
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0]; // Pakai optional chaining
-    
-        if (file) {
-          console.log('logThis, Nama file:', file.name);
-          console.log('logThis, Tipe file:', file.type);
-          console.log('logThis, Ukuran file:', file.size);
-        } else {
-          console.log('logThis, Tidak ada file dipilih.');
+    const handleAddInput= (e:any) => {
+       const newInput = {
+            id:draft.educational_background.length + 1,
+            school_name:'',
+            school_city_regency:'',
+            graduation_year:'',
+            report_card_and_diploma:{}
         }
-      };
+        setDraft({
+            ...draft,
+            educational_background : [...draft.educational_background, newInput ]
+        })
+    }
+    const handleChange =(e:any) =>{
+        
+    }
 
-  return (
-    <div className='border radius-lg flex flex-col gap-2'>
-        <div className='text-sm font-semibold border radius-lg p-3'>Educational background information</div>
-        <Grid container spacing={2} size={12} style={{ padding: 12 }}>
-            <Grid size={6}>
-                <TextField fullWidth name='schoolname' id="schoolname" label="School name" variant="outlined" onBlur={handelChange}/>
+    const renderHandle = (item:any) => {
+        return(
+            <Grid container spacing={2} size={12} style={{ padding: 12 }} className={'border radius-lg'}>
+                <Grid size={6}>
+                    <TextField value={item.school_name} fullWidth name='school_name' id="school_name" label="School name" variant="outlined" onBlur={handleChange} />
+                </Grid>
+                <Grid size={3}>
+                    <TextField value={item.school_city_regency} fullWidth name='school_city_regency' id="city_regency" label="City/Regency" variant="outlined" onBlur={handleChange} />
+                </Grid>
+                <Grid size={3}>
+                    <TextField value={item.graduation_year} fullWidth name='graduation_year' id="graduation_year" label="Graduation year" variant="outlined" onBlur={handleChange} />
+                </Grid>
+                <Grid size={12}>
+                    {item.report_card_and_diploma.lastModified ?
+                        <Grid size={12}>
+                            <TextField fullWidth value={item.report_card_and_diploma.name} disabled/> 
+                        </Grid>:
+                        <div className="dropzone">
+                            <div>
+                                <UploadFile draft={draft} setDraft={handleChange} placeholder='Upload  Report card and Diploma (Max. 10Mb)' />
+                            </div>
+                        </div>
+                    }
+                </Grid>
             </Grid>
-            <Grid size={3}>
-                <TextField fullWidth name='school_city_regency' id="city_regency" label="City/Regency" variant="outlined" onBlur={handelChange}/>
-            </Grid>
-            <Grid size={3}>
-                <TextField fullWidth name='graduation_year' id="graduation_year" label="Graduation year" variant="outlined" onBlur={handelChange}/>
-            </Grid>
-            <Grid size={12}>
-            <div className="dropzone">
-                <div>
-                    <input type="file" id="file-upload" className='border-dashed border-4 border-biru-light rounded-lg px-80 py-12' style={{width:'100%', alignContent:'center'}} onChange={handleFileChange}/>
+        )
+    }
+    return (
+        <div className='border radius-lg flex flex-col gap-2'>
+            <div className='flex justify-between  border radius-lg p-3 items-center'>
+                <div className='text-md font-semibold'>Educational background information</div>
+                <div className='flex gap-1 items-center'>
+                    <img src="/icons/plus.svg" alt="add" />
+                    <div className='text-xs font-semibold text-blue-dark' onClick={handleAddInput}>Add New</div>
                 </div>
             </div>
-            </Grid>
-        </Grid>
-    </div>
-  )
+            {draft.educational_background.map((item:any) => renderHandle(item))}
+        </div>
+    )
 }
 
 export default EducationalBackgroundInformation

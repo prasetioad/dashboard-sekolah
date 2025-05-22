@@ -21,7 +21,7 @@ export default function Table(props:RegistrationProps) {
                         <td className="w-48 p-2 text-center">{student.no}</td>
                         <td className="p-2">
                             <div className='flex flex-start gap-2 items-center'>
-                                <img src={student.gender == "female" ? "/icons/Girl.svg":"/icons/Boy.svg"} alt="" className={student.gender == "female" ? 'bg-biru-light rounded-md p-1':'bg-pink rounded-md p-1'}/>
+                                <img src={student.gender == "female" ? "/icons/Girl.svg":"/icons/Boy.svg"} alt="" className={student.gender == "female" ? 'bg-blue-light rounded-md p-1':'bg-pink rounded-md p-1'}/>
                                 {student.name}
                             </div>
                         </td>

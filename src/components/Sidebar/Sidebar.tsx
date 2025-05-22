@@ -60,7 +60,7 @@ const Sidebar = () => {
               onClick={() => toggleSidebar()}
               className={`flex items-center space-x-2 text-sm font-medium px-3 py-2 rounded-md w-full text-left transition ${
                 location.pathname === path
-                  ? "bg-gradient-to-r from-biru-dark to-biru-light text-white shadow"
+                  ? "bg-gradient-to-r from-blue-dark to-blue-light text-white shadow"
                   : "hover:bg-gray-100 text-gray-700"
               }`}
             >
@@ -78,7 +78,7 @@ const Sidebar = () => {
               onClick={() => toggleSidebar()}
               className={`flex items-center space-x-2 text-sm font-medium px-3 py-2 rounded-md w-full text-left transition ${
                 location.pathname === path
-                  ? "bg-gradient-to-r from-biru-dark to-biru-light text-white shadow"
+                  ? "bg-gradient-to-r from-blue-dark to-blue-light text-white shadow"
                   : "hover:bg-gray-100 text-gray-700"
               }`}
             >

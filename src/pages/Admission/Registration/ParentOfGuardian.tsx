@@ -8,7 +8,13 @@ function ParentOfGuardian(props: RegistrationProps) {
     const { listData, handelChange, draft } = props
     return (
         <div className='border radius-lg flex flex-col gap-2'>
-            <div className='text-sm font-semibold border radius-lg p-3'>Parent or guardian information</div>
+            <div className='flex justify-between  border radius-lg p-3 items-center'>
+                <div className='text-md font-semibold'>Parent or guardian information</div>
+                <div className='flex gap-1 items-center'>
+                    <img src="/icons/plus.svg" alt="add" />
+                    <div className='text-xs font-semibold text-blue-dark'>Add New</div>
+                </div>
+            </div>
             <Grid container spacing={2} size={12} style={{ padding: 12 }}>
                 <Grid size={3}>
                     <SelectSmall name='guardian_name' label='Who(Father/Mother/Other)' master={listData} onChange={handelChange} draft={draft} />
@@ -43,7 +49,7 @@ function ParentOfGuardian(props: RegistrationProps) {
                                     name="guardian_gender"
                                 />
                             </div>
-                            <div className="bg-biru-light p-1 rounded radius-lg">
+                            <div className="bg-blue-light p-1 rounded radius-lg">
                                 <img src="/icons/Man.svg" alt="Man" />
                             </div>
                             <div>Man</div>
@@ -60,7 +66,7 @@ function ParentOfGuardian(props: RegistrationProps) {
                                 />
                             </div>
                             <div className="bg-pink p-1 rounded radius-lg">
-                                <img src="/icons/Woman.svg" alt="Woman" />
+                                <img src="/icons/Woman.svg" alt="Woman"/>
                             </div>
                             <div>Woman</div>
                         </div>

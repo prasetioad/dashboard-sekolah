@@ -6,10 +6,11 @@ import ProspectiveStudentInformation from './ProspectiveStudentInformation'
 import EducationalBackgroundInformation from './EducationalBackgroundInformation'
 import UploadTransferReciept from './UploadTransferReciept'
 import useSearchAndSort from '@/hooks/useSearchAndSort'
+import registerData from './TypeData'
 
 
 function StudentRegistration() {
-  const [draft, setDraft] = useState({})
+  const [draft, setDraft] = useState(registerData)
   const [keyword, setKeyword] = useState('')
   const [keywordFiled, setKeywordFiled] = useState('')
   const [sortField, setsortField] = useState('name')
@@ -17,12 +18,14 @@ function StudentRegistration() {
 
   const handelChange = (e:any) => {
     const {name, value} = e.target
-    return
+    console.log('logThisIndex',e);
     setDraft({
       ...draft,
       [name] : value,
     })
   }
+  console.log('logThis', draft);
+  
   const listData = [
     'Father', 'Mother', 'Other'
   ]
@@ -62,7 +65,7 @@ function StudentRegistration() {
         </div>
         <ProspectiveStudentInformation handelChange={handelChange} draft={draft}/>
         <ParentOfGuardian listData={listData} handelChange={handelChange} draft={draft} />
-        <EducationalBackgroundInformation listData={listData} handelChange={handelChange} draft={draft}/>
+        <EducationalBackgroundInformation listData={listData} handelChange={handelChange} draft={draft} setDraft={setDraft}/>
         <UploadTransferReciept />
       </div>
     </div>
