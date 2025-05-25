@@ -1,45 +1,51 @@
-import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import React from 'react';
+import {
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
 
-type selectProps = {
-    name:any;
-    label: string;
-    master: any[];
-    draft: any;
-    onChange: (e: string) => void
+export interface SelectSmallProps<T extends string | number> {
+  name: string;
+  label: string;
+  master: T[]; // List of options (value & display)
+  value: T;
+  onChange: (value: T) => void;
 }
 
-export default function SelectSmall(props: selectProps) {
-    const {name, label, master, draft, onChange} = props
+export default function SelectSmall<T extends string | number>({
+  name,
+  label,
+  master,
+  value,
+  onChange,
+}: SelectSmallProps<T>) {
+  const handleChange = (event: SelectChangeEvent<T>) => {
+    onChange(event.target.value as T);
+  };
 
-    const handleChange = (event: any) => {
-        onChange(event);
-    };
-
-    return (
-        <div>
-            <FormControl sx={{minWidth: 120 }} fullWidth>
-                <InputLabel id="demo-simple-select-autowidth-label">{label}</InputLabel>
-                <Select
-                    labelId="demo-simple-select-autowidth-label"
-                    id={name}
-                    value={draft.guardian}
-                    label={label}
-                    onBlur={handleChange}
-                    variant='outlined'
-                    name={name}
-                >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    {master.map(item =>
-                        <MenuItem value={item}>{item}</MenuItem>
-                    )}
-                </Select>
-            </FormControl>
-        </div>
-    );
+  return (
+    <FormControl sx={{ minWidth: 120 }} fullWidth>
+      <InputLabel id={`label-${name}`}>{label}</InputLabel>
+      <Select
+        labelId={`label-${name}`}
+        id={name}
+        value={value}
+        label={label}
+        onChange={handleChange}
+        name={name}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        {master.map((item, idx) => (
+          <MenuItem key={idx} value={item}>
+            {item}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  );
 }

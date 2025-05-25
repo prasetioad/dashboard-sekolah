@@ -1,86 +1,119 @@
-import React from 'react'
-import { Grid, TextField, Box, Typography, Radio } from '@mui/material'
-import SelectSmall from './DropDownMenu'
-import { RegistrationProps } from './Interface'
-import CustomDatePicker from '@/hooks/CustomDatePicker'
+import React from 'react';
+import { Grid, TextField, Typography, Radio } from '@mui/material';
+import SelectSmall from './DropDownMenu';
+import CustomDatePicker from '@/hooks/CustomDatePicker';
+import { ParentOfGuardianProps } from './TypeData';
 
-function ParentOfGuardian(props: RegistrationProps) {
-    const { listData, handelChange, draft } = props
+export default function ParentOfGuardian({
+    listData,
+    draft,
+    index,
+    handleWaliChange,
+}: ParentOfGuardianProps) {
     return (
-        <div className='border radius-lg flex flex-col gap-2'>
-            <div className='flex justify-between  border radius-lg p-3 items-center'>
-                <div className='text-md font-semibold'>Parent or guardian information</div>
-                <div className='flex gap-1 items-center'>
+        <div className="border flex flex-col gap-2 radius-lg rounded-lg">
+            <div className="flex justify-between border p-3 items-center radius-lg rounded-t-lg">
+                <div className="text-md font-semibold">Parent or Guardian Information</div>
+                <div className="flex gap-1 items-center cursor-pointer">
                     <img src="/icons/plus.svg" alt="add" />
-                    <div className='text-xs font-semibold text-blue-dark'>Add New</div>
+                    <div className="text-xs font-semibold text-blue-dark">Add New</div>
                 </div>
             </div>
-            <Grid container spacing={2} size={12} style={{ padding: 12 }}>
+
+            <Grid container spacing={2} style={{ padding: 12 }}>
                 <Grid size={3}>
-                    <SelectSmall name='guardian_name' label='Who(Father/Mother/Other)' master={listData} onChange={handelChange} draft={draft} />
+                    <SelectSmall
+                        name="status_wali"
+                        label="Who (Father/Mother/Other)"
+                        master={listData}
+                        value={draft.status_wali === '0' ? 'Mother' : draft.status_wali === '1' ? 'Father' : 'Other'}
+                        onChange={(val) => handleWaliChange(index, 'status_wali', val)}
+                    />
                 </Grid>
                 <Grid size={3}>
-                    <TextField fullWidth name='guardian_fullname' id="guardian_fullname" label="Full name" variant="outlined" onBlur={handelChange}/>
+                    <TextField
+                        fullWidth
+                        name="nama"
+                        label="Full name"
+                        value={draft.nama}
+                        onChange={(e) => handleWaliChange(index, 'nama', e.target.value)}
+                    />
                 </Grid>
                 <Grid size={3}>
-                    <CustomDatePicker 
-                        name='guardian_date_of_birth'
+                    <CustomDatePicker
+                        name="tanggal_lahir"
                         label="Date of birth"
-                        value={draft.guardian_date_of_birth}
-                        onChange={(date) => handelChange(date)}
-                        size='medium'
+                        value={draft.tanggal_lahir ? new Date(draft.tanggal_lahir) : null}
+                        onChange={(date) => handleWaliChange(index, 'tanggal_lahir', date ? +date : 0)}
+                        size="medium"
                         disableFuture
                     />
                 </Grid>
                 <Grid size={3}>
-                    <TextField fullWidth name='guardian_place_of_birth' id="guardian_place_of_birth" label="Place of birth" variant="outlined" onBlur={handelChange}/>
+                    <TextField
+                        fullWidth
+                        name="tempat_lahir"
+                        label="Place of birth"
+                        value={draft.tempat_lahir}
+                        onChange={(e) => handleWaliChange(index, 'tempat_lahir', e.target.value)}
+                    />
                 </Grid>
-                <Grid size={6} container spacing={0}>
-                    <Grid size={4} >
-                        <div className='border radius-lg p-4'>Gender</div>
-                    </Grid>
-                    <Grid size={4} >
-                        <div className="border radius-lg p-2 flex justify-center items-center gap-1">
-                            <div>
+
+                <Grid size={12} container spacing={2}>
+                    <Grid size={6} className="flex items-center">
+                        <Grid size={4}>
+                            <Typography className="p-4">Gender</Typography>
+                        </Grid>
+                        <Grid size={5}>
+                            <div className="border radius-lg p-2 flex justify-center items-center gap-1">
                                 <Radio
-                                    checked={draft.guardian_gender === 'Man'}
-                                    onChange={handelChange}
-                                    value="Man"
-                                    name="guardian_gender"
+                                    checked={draft.jenis_kelamin === '0'}
+                                    onChange={() => handleWaliChange(index, 'jenis_kelamin', '0')}
+                                    value="0"
+                                    name="jenis_kelamin"
                                 />
+                                <div className="bg-blue-light p-1 rounded radius-lg">
+                                    <img src="/icons/Man.svg" alt="Man" />
+                                </div>
+                                <div>Man</div>
                             </div>
-                            <div className="bg-blue-light p-1 rounded radius-lg">
-                                <img src="/icons/Man.svg" alt="Man" />
-                            </div>
-                            <div>Man</div>
-                        </div>
-                    </Grid>
-                    <Grid size={4} >
-                        <div className='border radius-lg p-2 flex justify-center items-center gap-1' >
-                            <div>
+                        </Grid>
+                        <Grid size={5}>
+                            <div className="border radius-lg p-2 flex justify-center items-center gap-1">
                                 <Radio
-                                    checked={draft.guardian_gender === 'Woman'}
-                                    onChange={handelChange}
-                                    value="Woman"
-                                    name="guardian_gender"
+                                    checked={draft.jenis_kelamin === '1'}
+                                    onChange={() => handleWaliChange(index, 'jenis_kelamin', '1')}
+                                    value="1"
+                                    name="jenis_kelamin"
                                 />
+                                <div className="bg-pink p-1 rounded radius-lg">
+                                    <img src="/icons/Woman.svg" alt="Woman" />
+                                </div>
+                                <div>Woman</div>
                             </div>
-                            <div className="bg-pink p-1 rounded radius-lg">
-                                <img src="/icons/Woman.svg" alt="Woman"/>
-                            </div>
-                            <div>Woman</div>
-                        </div>
+                        </Grid>
+                    </Grid>
+                    <Grid size={6}>
+                        <TextField
+                            fullWidth
+                            name="nomor_telepon"
+                            label="Phone number"
+                            value={draft.nomor_telepon}
+                            onChange={(e) => handleWaliChange(index, 'nomor_telepon', e.target.value)}
+                        />
                     </Grid>
                 </Grid>
-                <Grid size={6}>
-                    <TextField fullWidth name='guardian_placephone_number' id="placephone_number" label="Phone number" variant="outlined" onBlur={handelChange}/>
-                </Grid>
+
                 <Grid size={12}>
-                    <TextField fullWidth name='guardian_address' id="address" label="Address" variant="outlined" onBlur={handelChange}/>
+                    <TextField
+                        fullWidth
+                        name="alamat"
+                        label="Address"
+                        value={draft.alamat}
+                        onChange={(e) => handleWaliChange(index, 'alamat', e.target.value)}
+                    />
                 </Grid>
             </Grid>
         </div>
-    )
+    );
 }
-
-export default ParentOfGuardian

@@ -1,6 +1,6 @@
 export interface RegistrationProps {
-    handelChange?:any;
-    draft?:any
-    listData?:any;
-    setDraft?:any
-  }
+    handleEdit: (e: any) => void;
+    draft?: any;
+    listData?: any;
+    setDraft?: any;
+}
