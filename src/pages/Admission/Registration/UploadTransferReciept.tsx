@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import UploadWithPreview from '@/components/UploadFile/uploadFileWithPreview';
+import UploadWithPreview from '@/components/UploadFile/UploadWithPreview';
 import { Typography } from '@mui/material';
 
 function UploadTransferReciept() {
@@ -14,7 +14,7 @@ function UploadTransferReciept() {
       <UploadWithPreview
         placeholder="Upload transfer receipt (Max. 10Mb)"
         accept="application/pdf,image/*"
-        onFileChange={(file) => setReceipt(file)}
+        onFileChange={(file: File | null) => setReceipt(file)}
       />
     </div>
     

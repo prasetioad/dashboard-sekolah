@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, TextField, Typography } from '@mui/material';
 import Panel from '@/components/Panel';
 import { Root, EducationalBackground } from './TypeData';
-import UploadWithPreview from '@/components/UploadFile/uploadFileWithPreview'
+import UploadWithPreview from '@/components/UploadFile/UploadWithPreview'
 
 interface EducationalBackgroundProps {
     draft: Root;
@@ -104,7 +104,7 @@ export default function EducationalBackgroundInformation({
                         <UploadWithPreview
                             placeholder="Upload transfer receipt (Max. 10Mb)"
                             accept="application/pdf,image/*"
-                            onFileChange={(file) => handleChange(index, 'report_card_and_diploma', file)}
+                            onFileChange={(file: File | null) => handleChange(index, 'report_card_and_diploma', file)}
                         />
                     </Grid>
                 </Grid>
