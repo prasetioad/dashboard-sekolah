@@ -1,246 +1,377 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
 import SearchBar from "@/components/SearchBar";
-import DataTable from "@/components/data-table";
-import { GridColDef } from "@mui/x-data-grid";
+import Table from "@/components/Table/Table";
 import ImageViewer from "@/components/image-viewer";
+import { TextField } from "@mui/material";
+import CustomDatePicker from "@/hooks/CustomDatePicker";
 
-type TScrining = {
-  news_id: number;
-  title: string;
-  content: string;
-  result: string;
-  status: string;
-  student_name: string;
-  student_image: string;
-};
-
-type TDataTable = {
-  id: number;
-  registration_number: string,
-  student_name: string,
-  origin_school: string,
-  status:string,
-  result: string,
-  action: string,
-  student_image: string
-}
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { TDataTable, TScriningData } from "./type";
+import { inputNational, dataArray } from "./Data";
 
 function Screening() {
   const [keyword, setKeyword] = useState("");
-
-  const data: TDataTable[] = [
-    {
-      id: 1,
-      registration_number: "SEC-2069291854S",
-      student_name: "Alfredo Curtis",
-      origin_school: "SMPK BPK PENABUR Bandar Lampung",
-      status: "Screening Test",
-      result: "Accepted",
-      action: "See detail",
-      student_image: "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68"
-    },
-    {
-      id: 2,
-      registration_number: "SEC-1960380456R",
-      student_name: "Adison Carder",
-      origin_school: "SMPK BPK PENABUR Bandar Lampung",
-      status: "Screening Test",
-      result: "Accepted",
-      action: "See detail",
-      student_image: "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68"
-    },
-    {
-      id: 3,
-      registration_number: "REX-2069293854S",
-      student_name: "Scarlett Fatimah",
-      origin_school: "SDN 1 Jakarta",
-      status: "Screening Test",
-      result: "Accepted",
-      action: "See detail",
-      student_image: "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68"
-    },
-    {
-      id: 4,
-      registration_number: "REX-2069295854S",
-      student_name: "Scarlett Fatimah",
-      origin_school: "SDN 1 Jakarta",
-      status: "Screening Test",
-      result: "Idle",
-      action: "See detail",
-      student_image: "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68"
-    },
-    {
-      id: 5,
-      registration_number: "REX-2069295854S",
-      student_name: "Scarlett",
-      origin_school: "SDN 1 Jakarta",
-      status: "Screening Test",
-      result: "Rejected",
-      action: "See detail",
-      student_image: "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68"
-    },
-  ].filter((item) =>
+  const [draft, setDraft] = useState<TScriningData | null>(null);
+  const data: TDataTable[] = dataArray.filter((item) =>
     item.student_name.toLowerCase().includes(keyword.toLowerCase())
   );
 
-  const getTableColumn = () => {
-    const columns: GridColDef<TScrining>[] = [
-      {
-        field: "registration_number",
-        headerName: "Registration Number",
-        minWidth: 200,
-        sortable: false,
-        // flex: 1,
-      },
-      {
-        field: "student_name",
-        headerName: "Student Name",
-        minWidth: 200,
-        // flex: 1,
-        sortable: false,
-        renderCell : (params) => {
-          return (
-            <div className="flex items-center gap-2">
-              {params.row.student_image && (<ImageViewer key={params.row.student_name} image={params.row.student_image ?? ""}  styles={{borderRadius: 50}} height={50} width={50}/>)}
-              <div className="text-black">
-                {params.row.student_name}
-              </div>
-            </div>
-          )
-          
-        }
-      },
-      {
-        field: "origin_school",
-        headerName: "Origin School",
-        minWidth: 200,
-        flex: 1,
-        sortable: false,
-      },
-      {
-        field: "status",
-        headerName: "Status",
-        minWidth: 160,
-        // maxWidth: 200,
-        // flex: 1,
-        sortable: false,
-        renderCell: (params) => {
-          return (
-            <div className="flex justify-center items-center h-full">
-              {params.row.status === "Screening Test"  && (
-                <div className={`bg-red-100 text-red-800 font-medium px-4 py-2 rounded-full text-sm`} style={{backgroundColor: "#7957DA", color: "white"}}>
-                {params.row.status}
-              </div>
-              )}
-              
-            </div>
-          );
-        },
-      },
-      {
-        field: "result",
-        headerName: "Result",
-        minWidth: 150,
-        // flex: 1,
-        sortable: false,
-        renderCell: (params) => {
-          return (
-            <div className="flex justify-center items-center h-full">
-              {params.row.result === "Accepted" ? (
-                <div
-                  className={`bg- text-white font-medium px-4 py-2 rounded-full text-sm`} style={{backgroundColor: "#6EC207", color: "white"}}
-                >
-                  {params.row.result}
-                </div>
-              ) : 
-              params.row.result === "Idle" ? (
-                <div
-                  className={`bg-gray-400 text-white font-medium px-4 py-2 rounded-full text-sm`} style={{backgroundColor: "#B7B7B7", color: "white"}}
-                >
-                  {params.row.result}
-                </div>
-              ) : 
-              (
-                <div
-                  className={`bg-green-800 text-white font-medium px-4 py-2 rounded-full text-sm`} style={{backgroundColor: "#DB0000", color: "white"}}
-                >
-                  {params.row.result}
-                </div>
-              )}
-            </div>
-          );
-        },
-      },
-      // {
-      //   field: "action",
-      //   headerName: "Action",
-      //   minWidth: 100,
-      //   sortable: false,
-      //   renderCell: (params) => {
-      //     return (
-      //       <div className="flex justify-center items-center h-full hover:bg-gray-100 cursor-pointer">
-      //         <div>See detail</div>
-      //       </div>
-      //     );
-      //   },
-      // },
-    ];
-    return columns;
-  };
-  return (
-    <div className="flex bg-white p-4">
-      <Grid container spacing={2} className="w-full">
-        <Grid size={10}>
-          <div className="text-lg font-semibold">Student Screening Records</div>
-          <div className="text-xs text-grey">
-            Displaying student data sorted by most recent entries.
+  interface Column<T> {
+    key: keyof T;
+    label: string;
+    render?: (val: T[keyof T], row: T) => React.ReactNode;
+  }
+
+  const columns: Column<TDataTable>[] = [
+    {
+      key: "registration_number",
+      label: "Registration Number",
+    },
+    {
+      key: "student_name",
+      label: "Student Name",
+      render: (val: string | number, row: TDataTable) => {
+        return (
+          <div className="flex items-center gap-2">
+            {row?.student_image && (
+              <ImageViewer
+                key={row?.student_name}
+                image={row?.student_image ?? ""}
+                styles={{ borderRadius: 50 }}
+                height={50}
+                width={50}
+              />
+            )}
+            <div className="text-black">{row?.student_name || ""}</div>
           </div>
+        );
+      },
+    },
+    {
+      key: "origin_school",
+      label: "Origin School",
+    },
+    {
+      key: "status",
+      label: "Status",
+      render: (val: string | number, row: TDataTable) => {
+        console.log("row", row, val);
+        return (
+          <div className="flex justify-center items-center h-full">
+            {val === "Screening Test" && (
+              <div
+                className={`bg-red-100 text-red-800 font-medium px-4 py-2 rounded-full text-sm`}
+                style={{ backgroundColor: "#7957DA", color: "white" }}
+              >
+                {val}
+              </div>
+            )}
+          </div>
+        );
+      },
+    },
+    {
+      key: "result",
+      label: "Result",
+      render: (val: string | number, row: TDataTable) => {
+        let bgColor = "";
+        if (row.result === "Accepted") {
+          bgColor = "#6EC207";
+        } else if (row.result === "Idle") {
+          bgColor = "#B7B7B7";
+        } else if (row.result === "Rejected") {
+          bgColor = "#DB0000";
+        }
+        return (
+          <div className="flex justify-center items-center h-full">
+            <div
+              className="text-white font-medium px-4 py-2 rounded-full text-sm"
+              style={{ backgroundColor: bgColor }}
+            >
+              {row.result}
+            </div>
+          </div>
+        );
+      },
+    },
+  ];
+
+  const handleEdit = (selected: TDataTable) => {
+    setDraft({
+      id: selected.id,
+      fullName: selected.student_name,
+      tanggal_lahir: null,
+      tempat_lahir: "",
+      alamat: "",
+      grade: selected.result,
+      math: "",
+      science: "",
+      social: "",
+      bahasa_indonesia: "",
+      sport: "",
+      art: "",
+      level: "",
+    });
+  };
+
+  const handleAddInput = () => {
+    setDraft((prev) => prev);
+  };
+
+  const handleChange = (field: keyof TScriningData, value: string | number) => {
+    setDraft((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        [field]: value,
+      };
+    });
+  };
+
+  return (
+    <div>
+      <div className="flex bg-white p-4">
+        <Grid container spacing={2} className="w-full">
+          <Grid size={10}>
+            <div className="text-lg font-semibold">
+              Student Screening Records
+            </div>
+            <div className="text-xs text-grey">
+              Displaying student data sorted by most recent entries.
+            </div>
+          </Grid>
+          <Grid size={2} className="flex justify-end items-start">
+            <Button
+              variant="outlined"
+              startIcon={<AddIcon />}
+              sx={{ textTransform: "none" }}
+              href="/registration"
+            >
+              <Typography variant="body2">New Screening</Typography>
+            </Button>
+          </Grid>
+          <Grid size={12}>
+            <SearchBar
+              keyword={keyword}
+              setKeyword={setKeyword}
+              placeholder="Search...."
+              withFilter={true}
+            />
+          </Grid>
+          <Table listData={data} handleEdit={handleEdit} columns={columns} />
         </Grid>
-        <Grid size={2} className="flex justify-end items-start">
-          <Button
-            variant="outlined"
-            startIcon={<AddIcon />}
-            sx={{ textTransform: "none" }}
-            href="/registration"
-          >
-             {/* <div className="text-lg font-semibold">New Screening</div> */}
-            <Typography variant="body2">New Screening</Typography>
-          </Button>
-        </Grid>
-        <Grid size={12}>
-          <SearchBar
-            keyword={keyword}
-            setKeyword={setKeyword}
-            placeholder="Search...."
-            withFilter={true}
-          />
-        </Grid>
-        <Grid size={12}>
-          <DataTable
-            // loading={query.isLoading}
-            rows={data}
-            columns={getTableColumn()}
-            // checkboxSelection
-            paginationInfo={{
-              page: 1,
-              page_size: 10,
-              total: 0,
-            }}
-            handleChange={() => {}}
-            // getRowId={(row: TNews) => row.news_id}
-            slots={{
-              pagination: () => null, // <- hide pagination component
-            }}
-          />
-        </Grid>
-        {/* </Card> */}
-      </Grid>
+      </div>
+      {draft?.id && (
+        <div>
+          <Grid size={12} className="flex justify-end mt-4">
+            <div className="grid grid-cols-1 gap-4 w-full bg-white rounded-lg p-3">
+              <div className="flex gap-4 items-center">
+                <div>
+                  <img src="/icons/screening_new_student.png" alt="image" />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <div className="text-lg font-semibold">
+                    Screening New Student
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    Tincidunt egestas sagittis erat ut in donec ultrices.
+                    Commodo eu amet vulputate pharetra venenatis..
+                  </div>
+                </div>
+                <div
+                  className="ml-auto w-[400px] bg-green-600 p-4 rounded-lg text-[#767C85]"
+                  style={{ width: 200 }}
+                >
+                  <div className="mb-2 text-white">Screening result :</div>
+                  <div className="px-5 py-2 rounded-md text-xl bg-white w-max ">
+                    76.33
+                  </div>
+                </div>
+              </div>
+
+              <div className="border radius-lg flex flex-col gap-2 rounded-lg">
+                <div className="text-md font-semibold border radius-lg p-3 rounded-t-lg">
+                  Selected student screening
+                </div>
+                <Grid container spacing={2} style={{ padding: 12 }}>
+                  <Grid size={6}>
+                    <TextField
+                      value={draft.fullName}
+                      fullWidth
+                      name="fullName"
+                      label="Full name"
+                      variant="outlined"
+                      onChange={(e) => handleChange("fullName", e.target.value)}
+                    />
+                  </Grid>
+                  <Grid size={3}>
+                    <CustomDatePicker
+                      name="tanggal_lahir"
+                      label="Date of birth"
+                      value={null}
+                      onChange={(date) => () => {
+                        handleChange("tanggal_lahir", date ? +date : 0);
+                      }}
+                      size="medium"
+                      disableFuture
+                    />
+                  </Grid>
+                  <Grid size={3}>
+                    <TextField
+                      value={draft.tempat_lahir}
+                      fullWidth
+                      name="tempat_lahir"
+                      label="Place of birth"
+                      variant="outlined"
+                      onChange={(e) =>
+                        handleChange("tempat_lahir", e.target.value)
+                      }
+                    />
+                  </Grid>
+                  <Grid size={12}>
+                    <TextField
+                      value={draft.alamat}
+                      fullWidth
+                      name="alamat"
+                      label="Address"
+                      variant="outlined"
+                      onChange={(e) => handleChange("alamat", e.target.value)}
+                    />
+                  </Grid>
+                </Grid>
+              </div>
+              <div className="border radius-lg flex flex-col gap-2 rounded-lg">
+                <div className="text-md font-semibold border radius-lg p-3 rounded-t-lg">
+                  Input national exam scores
+                </div>
+                <Grid container spacing={2} style={{ padding: 12 }}>
+                  {inputNational.map((item) => (
+                    <Grid size={6}>
+                      <Typography>{item.subject}</Typography>
+                      <Grid container className={"mt-3"}>
+                        <Grid size={6} className="pr-3">
+                          <TextField
+                            label="Grade"
+                            fullWidth
+                            name={item.status}
+                            onChange={(e) =>
+                              handleChange(item.name, e.target.value)
+                            }
+                          />
+                        </Grid>
+                        <Grid size={6}>
+                          <div>
+                            <Typography variant="subtitle2">Status</Typography>
+                            <div className="flex justify-start items-center h-full">
+                              {Status(
+                                draft?.[item.name] !== null
+                                  ? (Number(draft?.[item.name]) as number)
+                                  : undefined
+                              )}
+                            </div>
+                          </div>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  ))}
+                </Grid>
+              </div>
+              <div className="border flex flex-col rounded-lg">
+                <div className="flex justify-between border radius-lg p-3 items-center rounded-t-lg">
+                  <div className="text-md font-semibold">Achievements</div>
+                  <div
+                    className="flex gap-1 items-center cursor-pointer"
+                    onClick={handleAddInput}
+                  >
+                    <img src="/icons/plus.svg" alt="add" />
+                    <div className="text-xs font-semibold text-blue-dark">
+                      Add New
+                    </div>
+                  </div>
+                </div>
+                <Grid container spacing={2} style={{ padding: 12 }}>
+                  <Grid size={4}>
+                    <TextField
+                      value={draft.alamat}
+                      fullWidth
+                      name="achievement"
+                      label="Achievement"
+                      variant="outlined"
+                      onChange={(e) => handleChange("alamat", e.target.value)}
+                    />
+                  </Grid>
+                  <Grid size={4}>
+                    <FormControl sx={{ minWidth: 120 }} fullWidth>
+                      <InputLabel id="demo-simple-select-helper-label">
+                        Level
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-helper-label"
+                        id="demo-simple-select-helper"
+                        value={draft.level || ""}
+                        label="level"
+                        // onChange={handleChange}
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={100}>International</MenuItem>
+                        <MenuItem value={90}>National</MenuItem>
+                        <MenuItem value={80}>Province</MenuItem>
+                        <MenuItem value={70}>City</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid size={4}>
+                    <TextField
+                      value={draft.grade}
+                      fullWidth
+                      name="grade"
+                      label="Grade"
+                      variant="outlined"
+                      onChange={(e) => handleChange("grade", e.target.value)}
+                    />
+                  </Grid>
+                </Grid>
+              </div>
+            </div>
+          </Grid>
+        </div>
+      )}
     </div>
   );
 }
+
+const Status = (value: number | undefined) => {
+
+  let bgColor = "";
+  let text = "";
+
+  if (value === undefined || value === null || value === 0) {
+    bgColor = "#B7B7B7";
+    text = "Idle";
+  } else if (value > 70) {
+    bgColor = "#6EC207";
+    text = "Passed";
+  } else {
+    bgColor = "#DB0000";
+    text = "Failed";
+  }
+  return (
+    <div
+      className="text-white font-medium px-4 py-1 rounded-full text-sm inline-block"
+      style={{ backgroundColor: bgColor }}
+    >
+      <Typography variant="inherit">{text}</Typography>
+    </div>
+  );
+};
 
 export default Screening;
